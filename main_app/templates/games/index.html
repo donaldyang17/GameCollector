@@ -1,0 +1,19 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1>Games List</h1>
+
+{% for game in games %}
+<div class="card">
+  <div class="card-content">
+    <span class="card-title">{{ game.name }}</span>
+    <p>Genre: {{ game.genre }}</p>
+    <p>Description: {{ game.description }}</p>
+    <p>Publisher: {{game.publisher}}</p>
+    {% if game.release_year > 0 %}
+    <p>Release Year: {{ game.release_year }}</p>
+    {% else %}
+    <p>Unreleased.</p>
+    {% endif %}
+  </div>
+</div>
+{% endfor %} {% endblock %}
