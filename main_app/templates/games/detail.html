@@ -2,7 +2,6 @@
 
 <h1>Games List</h1>
 
-{% for game in games %}
 <div class="card">
   <div class="card-content">
     <span class="card-title">{{ game.name }}</span>
@@ -15,8 +14,6 @@
     <p>Unreleased.</p>
     {% endif %}
   </div>
-  <a class="waves-effect waves-light btn" href="{% url 'detail' game.id %}"
-    >Details
-  </a>
 </div>
-{% endfor %} {% endblock %}
+
+{% endblock %}
