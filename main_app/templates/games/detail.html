@@ -57,10 +57,35 @@
           Description: {{character.description}}
         </span>
       </div>
+      {% endfor %} {% else %}
+      <h5>No characters entered.</h5>
+      {% endif %}
+    </div>
+  </div>
+  <div class="col s6">
+    <h3>Available Characters</h3>
+    {% if characters.count %} {% for character in characters.all %}
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">
+          Name: {{ character.name }}<br />
+          Gender: {{ character.gender }}<br />
+          Description: {{character.description}}
+        </span>
+      </div>
+      <div class="card-action">
+        <form
+          action="{% url 'assoc_character' game.id character.id %}"
+          method="post"
+        >
+          {% csrf_token %}
+          <button type="submit" class="btn">Add</button>
+        </form>
+      </div>
     </div>
     {% endfor %} {% else %}
-    <h5>No characters entered.</h5>
+    <h5>There are no more characters available to add to {{game.name}}.</h5>
     {% endif %}
   </div>
+  {% endblock %}
 </div>
-{% endblock %}
