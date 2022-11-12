@@ -52,3 +52,15 @@ class CharacterList(ListView):
 
 class CharacterDetail(DetailView):
     model = Character
+
+class CharacterCreate(CreateView):
+    model = Character
+    fields = '__all__'
+
+class CharacterUpdate(UpdateView):
+    model = Character
+    fields = ['description']
+
+class CharacterDelete(DeleteView):
+    model = Character
+    success_url = '/characters/'
