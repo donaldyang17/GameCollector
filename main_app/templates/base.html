@@ -10,6 +10,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
     />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <link
       rel="stylesheet"
       type="text/css"
@@ -26,8 +27,9 @@
             </li>
           </ul>
           <ul class="right">
-            <li><a href="/about">About</a></li>
-            <li><a href="/games">List of Games</a></li>
+            <li><a href="{% url 'games_create' %}">Add a Game</a></li>
+            <li><a href="{% url 'index' %}">List of Games</a></li>
+            <li><a href="{% url 'about' %}">About</a></li>
           </ul>
         </div>
       </nav>
@@ -37,6 +39,17 @@
       <div class="right">
         All Rights Reserved, &copy; 2022 Game Collector &nbsp;
       </div>
+      <script>
+        var dateEl = document.getElementById("id_date");
+        M.Datepicker.init(dateEl, {
+          format: "yyyy-mm-dd",
+          defaultDate: new Date(),
+          setDefaultDate: true,
+          autoClose: true,
+        });
+        var selectEl = document.getElementById("id_rate");
+        M.FormSelect.init(selectEl);
+      </script>
     </footer>
   </body>
 </html>

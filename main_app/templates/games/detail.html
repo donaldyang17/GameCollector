@@ -1,19 +1,66 @@
 {% extends 'base.html' %} {% block content %}
 
-<h1>Games List</h1>
-
-<div class="card">
-  <div class="card-content">
-    <span class="card-title">{{ game.name }}</span>
-    <p>Genre: {{ game.genre }}</p>
-    <p>Description: {{ game.description }}</p>
-    <p>Publisher: {{game.publisher}}</p>
-    {% if game.release_year > 0 %}
-    <p>Release Year: {{ game.release_year }}</p>
-    {% else %}
-    <p>Unreleased.</p>
+<h1 class="teal-text text-lighten-2">Games List</h1>
+<div class="row">
+  <div class="col s6">
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">{{ game.name }}</span>
+        <p>Genre: {{ game.genre }}</p>
+        <p>Publisher: {{game.publisher}}</p>
+        <p>Description: {{ game.description }}</p>
+        {% if game.release_year > 0 %}
+        <p>Release Year: {{ game.release_year }}</p>
+        {% else %}
+        <p>Unreleased.</p>
+        {% endif %}
+      </div>
+      <div class="card-action">
+        <a href="{% url 'games_update' game.id %}">Edit</a>
+        <a href="{% url 'games_delete' game.id %}">Delete</a>
+      </div>
+    </div>
+  </div>
+  <div class="col s6">
+    <form action="{% url 'add_rating' game.id %}" method="post">
+      {% csrf_token %} {{ rate_form.as_p }}
+      <input type="submit" class="btn" value="Add Rating" />
+    </form>
+    <table class="striped">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Rating:</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for rating in game.rating_set.all %}
+        <tr>
+          <td>{{rating.date}}</td>
+          <td>{{rating.get_rate_display}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+<hr />
+<div class="row">
+  <div class="col s6">
+    <h3>{{ game.name }}'s Characters</h3>
+    {% if game.characters.count %} {% for character in game.characters.all %}
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">
+          Name: {{ character.name }}<br />
+          Gender: {{ character.gender }}<br />
+          Description: {{character.description}}
+        </span>
+      </div>
+    </div>
+    {% endfor %} {% else %}
+    <h5>No characters entered.</h5>
     {% endif %}
   </div>
 </div>
-
 {% endblock %}
