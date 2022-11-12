@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView
 from .models import Game, Character
 from .forms import RatingForm
 
@@ -45,3 +46,9 @@ class GameUpdate(UpdateView):
 class GameDelete(DeleteView):
     model = Game
     success_url = '/games/'
+
+class CharacterList(ListView):
+    model = Character
+
+class CharacterDetail(DetailView):
+    model = Character
