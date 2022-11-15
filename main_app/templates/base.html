@@ -16,6 +16,17 @@
       type="text/css"
       href="{% static 'css/style.css' %}"
     />
+    <script>
+      var dateEl = document.getElementById("id_date");
+      M.Datepicker.init(dateEl, {
+        format: "yyyy-mm-dd",
+        defaultDate: new Date(),
+        setDefaultDate: true,
+        autoClose: true,
+      });
+      var selectEl = document.getElementById("id_rate");
+      M.FormSelect.init(selectEl);
+    </script>
   </head>
   <body class="purple lighten-5">
     <header class="navbar-fixed">
@@ -27,31 +38,22 @@
             </li>
           </ul>
           <ul class="right">
+            <li><a href="{% url 'about' %}">About</a></li>
+            {% if user.is_authenticated %}
+            <li>{{ user }} is logged in.</li>
             <li><a href="{% url 'games_create' %}">Add a Game</a></li>
             <li><a href="{% url 'index' %}">List of Games</a></li>
-            <li><a href="{% url 'about' %}">About</a></li>
-            <li><a href="{% url 'characters_index' %}">Character List</a></li>
             <li><a href="{% url 'characters_create' %}">Add a Character</a></li>
+            <li><a href="{% url 'characters_index' %}">Character List</a></li>
+            <li><a href="{% url 'logout' %}">Log Out</a></li>
+            {% else %}
+            <li><a href="{% url 'signup' %}">Sign Up</a></li>
+            <li><a href="{% url 'login' %}">Log In </a></li>
+            {% endif %}
           </ul>
         </div>
       </nav>
     </header>
     <main class="container">{% block content %} {% endblock %}</main>
-    <footer class="page-footer teal lighten-2">
-      <div class="right">
-        All Rights Reserved, &copy; 2022 Game Collector &nbsp;
-      </div>
-      <script>
-        var dateEl = document.getElementById("id_date");
-        M.Datepicker.init(dateEl, {
-          format: "yyyy-mm-dd",
-          defaultDate: new Date(),
-          setDefaultDate: true,
-          autoClose: true,
-        });
-        var selectEl = document.getElementById("id_rate");
-        M.FormSelect.init(selectEl);
-      </script>
-    </footer>
   </body>
 </html>

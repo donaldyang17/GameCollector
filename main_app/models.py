@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 RATINGS = (
     ('E', 'Excellent'),
@@ -28,6 +29,7 @@ class Game(models.Model):
     description = models.TextField(max_length=250)
     release_year = models.IntegerField()
     characters = models.ManyToManyField(Character)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
         
     def __str__(self):
         return self.name
